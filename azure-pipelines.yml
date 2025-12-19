@@ -49,3 +49,24 @@ stages:
           inputs:
             targetType: 'inline'
             script: 'tfsec'
+  - stage: 
+    jobs:
+      - job: 
+        steps:
+        - task: TerraformTask@5
+          inputs:
+            provider: 'azurerm'
+            command: 'plan'
+            environmentServiceNameAzureRM: 'my-svc'
+
+  - stage: 
+    jobs:
+      - job: 
+        steps:
+        - task: TerraformTask@5
+          inputs:
+            provider: 'azurerm'
+            command: 'apply'
+            environmentServiceNameAzureRM: 'my-svc'
+
+           
