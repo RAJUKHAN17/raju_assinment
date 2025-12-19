@@ -54,19 +54,22 @@ stages:
     jobs:
       - job: 
         steps:
-        - task: TerraformTask@5
-          inputs:
-            provider: 'azurerm'
-            command: 'init'
-            backendAzureRmStorageAccountName: 'merasa'
-            backendAzureRmContainerName: 'container'
-            backendAzureRmKey: 'terraform.tfstate'
-        
-        - task: TerraformTask@5
-          inputs:
-            provider: 'azurerm'
-            command: 'plan'
-            environmentServiceNameAzureRM: 'my-svc'
+          - task: TerraformTask@5
+            displayName: "Terraform Init"
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'my-svc'
+              backendAzureRmStorageAccountName: 'merasa'
+              backendAzureRmContainerName: 'container'
+              backendAzureRmKey: 'terraform.tfstate'
+
+          - task: TerraformTask@5
+            displayName: "Terraform Plan"
+            inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              environmentServiceNameAzureRM: 'my-svc'
   - stage: 
     displayName: "Terraform apply" 
     jobs:
