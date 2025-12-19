@@ -30,3 +30,20 @@ stages:
               provider: 'azurerm'
               command: 'plan'
               environmentServiceNameAzureRM: 'my-svc'
+  - stage: 
+    displayName: "Terraform tflint & tfsec"
+    jobs: 
+      - job: 
+        displayName: "Terraform tflint"
+        steps:
+        - task: PowerShell@2
+          inputs:
+            targetType: 'inline'
+            script: 'tflint'
+      - job: 
+        displayName: "Terraform tfse"
+        steps:
+        - task: PowerShell@2
+          inputs:
+            targetType: 'inline'
+            script: 'tfsec'
