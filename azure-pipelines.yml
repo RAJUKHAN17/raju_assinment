@@ -1,16 +1,21 @@
 trigger:
-- main
-- feature/*
+  branches:
+    include:
+      - main
+      - feature/*
 
-
-pool: my_agent_1
-
+pool:
+  name: my_agent_1
 
 stages:
+  - stage: Terraform_Stage
+    displayName: "Terraform Init & Plan"
     jobs:
-      - job: 
-          steps:
+      - job: terraform_job
+        displayName: "Init and Plan"
+        steps:
           - task: TerraformTask@5
+            displayName: "Terraform Init"
             inputs:
               provider: 'azurerm'
               command: 'init'
@@ -18,3 +23,10 @@ stages:
               backendAzureRmStorageAccountName: 'merasa'
               backendAzureRmContainerName: 'container'
               backendAzureRmKey: 'terraform.tfstate'
+
+          - task: TerraformTask@5
+            displayName: "Terraform Plan"
+            inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              environmentServiceNameAzureRM: 'my-svc'
