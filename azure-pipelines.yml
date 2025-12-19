@@ -89,5 +89,9 @@ stages:
             provider: 'azurerm'
             command: 'apply'
             environmentServiceNameAzureRM: 'my-svc'
-
+        - task: TerraformTask@5
+          inputs:
+            provider: 'azurerm'
+            command: 'destroy'
+            environmentServiceNameAzureRM: 'my-svc'
            
