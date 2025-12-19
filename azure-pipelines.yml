@@ -1,0 +1,20 @@
+trigger:
+- main
+- feature/*
+
+
+pool: my_agent_1
+
+
+stages:
+    jobs:
+      - job: 
+          steps:
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'my-svc'
+              backendAzureRmStorageAccountName: 'merasa'
+              backendAzureRmContainerName: 'container'
+              backendAzureRmKey: 'terraform.tfstate'
