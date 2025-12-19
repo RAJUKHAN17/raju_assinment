@@ -50,6 +50,7 @@ stages:
             targetType: 'inline'
             script: 'tfsec'
   - stage: 
+    displayName: "Terraform PLAN" 
     jobs:
       - job: 
         steps:
@@ -60,6 +61,7 @@ stages:
             environmentServiceNameAzureRM: 'my-svc'
 
   - stage: 
+    displayName: "Terraform apply" 
     jobs:
       - job: 
         steps:
