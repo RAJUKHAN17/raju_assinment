@@ -50,21 +50,37 @@ stages:
             targetType: 'inline'
             script: 'tfsec'
   - stage: 
-    displayName: "Terraform PLAN" 
+    displayName: "Terraform PLAN"
     jobs:
       - job: 
         steps:
         - task: TerraformTask@5
           inputs:
             provider: 'azurerm'
+            command: 'init'
+            backendAzureRmStorageAccountName: 'merasa'
+            backendAzureRmContainerName: 'container'
+            backendAzureRmKey: 'terraform.tfstate'
+        
+        - task: TerraformTask@5
+          inputs:
+            provider: 'azurerm'
             command: 'plan'
             environmentServiceNameAzureRM: 'my-svc'
-
   - stage: 
     displayName: "Terraform apply" 
     jobs:
-      - job: 
+      - job:
         steps:
+        - task: TerraformTask@5
+          inputs:
+            provider: 'azurerm'
+            command: 'init'
+            backendServiceArm: 'my-svc'
+            backendAzureRmStorageAccountName: 'merasa'
+            backendAzureRmContainerName: 'container'
+            backendAzureRmKey: 'terraform.tfstate' 
+        
         - task: TerraformTask@5
           inputs:
             provider: 'azurerm'
